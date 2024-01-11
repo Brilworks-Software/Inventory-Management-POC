@@ -1,0 +1,14 @@
+{
+  "resourceName": "products",
+  "tableName": "products",
+  "partitionKey": {
+    "fieldName": "name",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "sale_price",
+    "fieldType": "number"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
