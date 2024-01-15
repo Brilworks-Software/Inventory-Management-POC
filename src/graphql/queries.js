@@ -254,6 +254,11 @@ export const getProduct = /* GraphQL */ `
         nextToken
         __typename
       }
+      quantity
+      description
+      unit_price
+      markup_percentage
+      sale_price
       createdAt
       updatedAt
       __typename
@@ -270,6 +275,11 @@ export const listProducts = /* GraphQL */ `
       items {
         id
         name
+        quantity
+        description
+        unit_price
+        markup_percentage
+        sale_price
         createdAt
         updatedAt
         __typename

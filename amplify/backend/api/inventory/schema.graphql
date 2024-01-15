@@ -88,4 +88,9 @@ type Product @model {
   name: String!
   orders: [Order] @hasMany(indexName: "byProduct", fields: ["id"])
   inventories: [Inventory] @hasMany(fields: ["id"])
+  quantity: Float
+  description: String
+  unit_price: Float
+  markup_percentage: Float
+  sale_price: Float
 }

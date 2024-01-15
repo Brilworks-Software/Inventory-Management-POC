@@ -368,6 +368,11 @@ export const createProduct = /* GraphQL */ `
         nextToken
         __typename
       }
+      quantity
+      description
+      unit_price
+      markup_percentage
+      sale_price
       createdAt
       updatedAt
       __typename
@@ -390,6 +395,11 @@ export const updateProduct = /* GraphQL */ `
         nextToken
         __typename
       }
+      quantity
+      description
+      unit_price
+      markup_percentage
+      sale_price
       createdAt
       updatedAt
       __typename
@@ -412,6 +422,11 @@ export const deleteProduct = /* GraphQL */ `
         nextToken
         __typename
       }
+      quantity
+      description
+      unit_price
+      markup_percentage
+      sale_price
       createdAt
       updatedAt
       __typename
