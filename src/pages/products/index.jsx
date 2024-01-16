@@ -1,18 +1,16 @@
 import {
-  Alert,
   Button,
   Card,
   Flex,
   Heading,
-  Icon,
   Loader,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
-import { FaPlus } from "react-icons/fa";
+import { FaArrowLeft, FaPlus } from "react-icons/fa";
 import { ProductsCreateForm, ProductsCollection } from "../../ui-components";
 import { useState } from "react";
 
-function Products({ signOut, user }) {
+function Products() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   return (
@@ -33,7 +31,15 @@ function Products({ signOut, user }) {
               size="small"
               onClick={() => setShowAddProductForm(!showAddProductForm)}
             >
-              <FaPlus /> Add
+              {showAddProductForm ? (
+                <>
+                  <FaArrowLeft /> Back to list
+                </>
+              ) : (
+                <>
+                  <FaPlus /> Add
+                </>
+              )}
             </Button>
           </Flex>
         </Card>

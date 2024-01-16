@@ -1,13 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Link as ReactRouterLink,
-  Routes,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { Amplify } from "aws-amplify";
-import { Link, Flex, Heading, withAuthenticator } from "@aws-amplify/ui-react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { NavBarHeader2 } from "./ui-components";
 
@@ -41,18 +33,6 @@ const router = createBrowserRouter(
   }))
 );
 
-// function Home() {
-//   return <Heading level={2}>Home</Heading>;
-// }
-
-// function About() {
-//   return <Heading level={2}>About</Heading>;
-// }
-
-// function Users() {
-//   return <Heading level={2}>Users</Heading>;
-// }
-
 function App({ user }) {
   return (
     <>
@@ -65,25 +45,6 @@ function App({ user }) {
         }}
       />
       <RouterProvider router={router} />
-      {/* <Router>
-        <Flex>
-          <ReactRouterLink to="/" component={Link}>
-            Home
-          </ReactRouterLink>
-          <ReactRouterLink to="/about" component={Link}>
-            About
-          </ReactRouterLink>
-          <ReactRouterLink to="/users" component={Link}>
-            Users
-          </ReactRouterLink>
-        </Flex>
-
-        <Routes>
-          <Route path="/about" element={<About />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router> */}
     </>
   );
 }
