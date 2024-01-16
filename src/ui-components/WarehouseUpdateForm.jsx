@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { getWarehouse } from "../graphql/queries";
@@ -24,12 +24,24 @@ export default function WarehouseUpdateForm(props) {
     overrides,
     ...rest
   } = props;
-  const initialValues = {};
+  const initialValues = {
+    name: "",
+    description: "",
+    location: "",
+  };
+  const [name, setName] = React.useState(initialValues.name);
+  const [description, setDescription] = React.useState(
+    initialValues.description
+  );
+  const [location, setLocation] = React.useState(initialValues.location);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = warehouseRecord
       ? { ...initialValues, ...warehouseRecord }
       : initialValues;
+    setName(cleanValues.name);
+    setDescription(cleanValues.description);
+    setLocation(cleanValues.location);
     setErrors({});
   };
   const [warehouseRecord, setWarehouseRecord] =
@@ -49,7 +61,11 @@ export default function WarehouseUpdateForm(props) {
     queryData();
   }, [idProp, warehouseModelProp]);
   React.useEffect(resetStateValues, [warehouseRecord]);
-  const validations = {};
+  const validations = {
+    name: [{ type: "Required" }],
+    description: [],
+    location: [],
+  };
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -75,7 +91,11 @@ export default function WarehouseUpdateForm(props) {
       padding="20px"
       onSubmit={async (event) => {
         event.preventDefault();
-        let modelFields = {};
+        let modelFields = {
+          name,
+          description: description ?? null,
+          location: location ?? null,
+        };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
@@ -126,6 +146,84 @@ export default function WarehouseUpdateForm(props) {
       {...getOverrideProps(overrides, "WarehouseUpdateForm")}
       {...rest}
     >
+      <TextField
+        label="Name"
+        isRequired={true}
+        isReadOnly={false}
+        value={name}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name: value,
+              description,
+              location,
+            };
+            const result = onChange(modelFields);
+            value = result?.name ?? value;
+          }
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
+          }
+          setName(value);
+        }}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
+      ></TextField>
+      <TextField
+        label="Description"
+        isRequired={false}
+        isReadOnly={false}
+        value={description}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              description: value,
+              location,
+            };
+            const result = onChange(modelFields);
+            value = result?.description ?? value;
+          }
+          if (errors.description?.hasError) {
+            runValidationTasks("description", value);
+          }
+          setDescription(value);
+        }}
+        onBlur={() => runValidationTasks("description", description)}
+        errorMessage={errors.description?.errorMessage}
+        hasError={errors.description?.hasError}
+        {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <TextField
+        label="Location"
+        isRequired={false}
+        isReadOnly={false}
+        value={location}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              description,
+              location: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.location ?? value;
+          }
+          if (errors.location?.hasError) {
+            runValidationTasks("location", value);
+          }
+          setLocation(value);
+        }}
+        onBlur={() => runValidationTasks("location", location)}
+        errorMessage={errors.location?.errorMessage}
+        hasError={errors.location?.hasError}
+        {...getOverrideProps(overrides, "location")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

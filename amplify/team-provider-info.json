@@ -29,7 +29,7 @@
         "S3AndCloudFront": {}
       },
       "api": {
-        "inventory": {}
+        "InventoryPOC": {}
       }
     }
   }
